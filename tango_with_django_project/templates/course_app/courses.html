@@ -1,11 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
+{% load staticfiles %}
+
 <head>
     <meta charset="UTF-8">
     <title>GA Courses</title>
+    <link rel="stylesheet" href="{% static 'course_app/stylesheet.css' %}">
 </head>
 <body>
-    <h1> COURSES! </h1>
-    <p> Put some courses here! </p>
+    <h1> GA COURSES! </h1>
+
+    {% for year in years %}
+        <button type="button" class="year_button" id="{{year}}" onClick="expand_content(this.id)"> Year {{year}} </button>
+        <div class="year_div" id="ydiv{{year}}">
+            {% for course in courses %}
+                {% if course.year == year %}
+                    <div class="course_div">
+                        <h2> {{course.title}} </h2>
+                        <p><strong>Start Date: </strong>{{course.start}}</p>
+                        <p><strong>Description: </strong>{{course.desc}}</p>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endfor %}
+
+    <script type="text/javascript" src="{% static 'course_app/script.js' %}"></script>
 </body>
 </html>
